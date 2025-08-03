@@ -1,0 +1,254 @@
+.birthdayCard {
+  position: relative;
+  width: 350px;
+  height: 450px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(2500px);
+  transition: 1s;
+}
+
+.birthdayCard.open {
+  transform: perspective(2500px) rotateY(5deg);
+  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2),
+    0 10px 100px rgba(0, 0, 0, 0.5);
+}
+
+.birthdayCard.open .cardFront {
+  transform: rotateY(-160deg);
+}
+
+.birthdayCard.open .happy {
+  visibility: hidden;
+}
+
+.cardFront {
+  position: absolute;
+  background-color: #fff;
+  width: 350px;
+  height: 450px;
+  overflow: hidden;
+  transform-origin: left;
+  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2),
+    30px 0 50px rgba(0, 0, 0, 0.4);
+  transition: 0.6s;
+  z-index: 2;
+}
+.cardInside::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.cardInside.flip-next::before,
+.cardInside.flip-prev::before {
+  opacity: 1;
+}
+
+.cardInside {
+  position: absolute;
+  background-color: #fff;
+  width: 350px;
+  height: 450px;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  padding: 30px;
+  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform-origin: left center;
+  transition: transform 0.6s ease-in-out;
+}
+
+.cardContent {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.happy {
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  margin: 30px;
+  background-image: linear-gradient(120deg, #ff78e4 0%, #ffc0fd 100%);
+}
+
+.back {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  outline-color: #333;
+  outline-style: dotted;
+  border-radius: 10px;
+}
+
+p {
+  color: #333;
+}
+
+.name {
+  text-align: right;
+  margin-top: 30px;
+  font-style: italic;
+}
+
+.balloons {
+  position: absolute;
+  display: flex;
+}
+
+.balloonOne,
+.balloonTwo,
+.balloonThree,
+.balloonFour {
+  position: absolute;
+  width: 85px;
+  height: 95px;
+  border-radius: 50%;
+  margin: 0 40px;
+}
+
+.balloonOne {
+  background-color: rgb(239, 71, 111, 0.7);
+  left: -10px;
+  top: 50px;
+}
+.balloonTwo {
+  background-color: rgb(6, 214, 160, 0.7);
+  left: 50px;
+  top: 20px;
+}
+.balloonThree {
+  background-color: rgb(255, 209, 102, 0.7);
+  left: 110px;
+  top: 50px;
+}
+.balloonFour {
+  background-color: rgb(17, 138, 178, 0.7);
+  left: 170px;
+  top: 20px;
+}
+
+.balloonOne:before,
+.balloonTwo:before,
+.balloonThree:before,
+.balloonFour:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 155px;
+  background-color: #ffd166;
+  top: 95px;
+  left: 43px;
+}
+
+.balloonOne:after,
+.balloonTwo:after,
+.balloonThree:after,
+.balloonFour:after {
+  content: "";
+  position: absolute;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  top: 94px;
+  left: 37px;
+}
+
+.balloonOne:after {
+  border-bottom: 10px solid #ef476f;
+}
+.balloonTwo:after {
+  border-bottom: 10px solid #06d6a0;
+}
+.balloonThree:after {
+  border-bottom: 10px solid #ffd166;
+}
+.balloonFour:after {
+  border-bottom: 10px solid #118ab2;
+}
+
+@keyframes flipNext {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flipPrev {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+.pageFlip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 350px;
+  background: white;
+  box-shadow: inset 30px 0 50px rgba(0, 0, 0, 0.2),
+              10px 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  transform-origin: left;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.pageFlip.flip-next {
+  animation: openNext 0.6s ease-in-out forwards;
+}
+
+.pageFlip.flip-prev {
+  transform-origin: right;
+  animation: openPrev 0.6s ease-in-out forwards;
+}
+
+@keyframes openNext {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-160deg);
+  }
+}
+
+@keyframes openPrev {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(160deg);
+  }
+}
+
+.cardInside.flip-next {
+  animation: flipNext 0.6s ease-in-out forwards;
+}
+
+.cardInside.flip-prev {
+  animation: flipPrev 0.6s ease-in-out forwards;
+}
+.cardInside.flip-next,
+.cardInside.flip-prev {
+  transform-origin: left center;
+}
+
